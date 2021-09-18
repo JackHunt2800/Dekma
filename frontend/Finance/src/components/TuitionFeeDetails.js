@@ -178,82 +178,56 @@ export default class TuitionFeeDetails extends Component{
 
  render(){
         return(
-            <div className = "container">
-                <h3>Barrowers Details</h3>
-                <form onSubmit={this.onSubmit}>
 
-                    <div className="form-grouo">
-                         
-                         <label>Teacher Id</label> 
-                         <input 
-                            type="text"
-                            className="form-control"
-                            value={this.state.TeacherId}
-                            onChange={this.onChangeTeacherId}
-                            />      
-                        
-                    </div>
-                    <div className="form-group">
-                        
-                        <label>Teacher Name</label>
-                        <input 
-                            type="text"
-                            className="form-control"
-                            value={this.state.Teachername}
-                            onChange={this.onChangeTeachername}
-                            /> 
-                        
-                    </div>
-
-                    <div className="form-grouo">
-                         
-                         <label>Subject ID</label> 
-                         <input 
-                            type="text"
-                            className="form-control"
-                            value={this.state.subjectId}
-                            onChange={this.onChangesubjectId}
-                            />      
-                    </div>
-
-                    <div className="form-grouo">
-                         
-                         <label>Subject Name</label> 
-                         <input 
-                            type="text"
-                            className="form-control"
-                            value={this.state.subjectName}
-                            onChange={this.onChangesubjectName}
-                            />      
-                        
-                    </div>
-                    <div className="form-grouo">
-                         
-                         <label>amount</label> 
-                         <input 
-                            type="text"
-                            className="form-control"
-                            
-                            value={this.state.Amount}
-                            onChange={this.onChangeAmount}
-                                
-                            />  
-                           
-                            
-                    </div>
-                    
-                    <br/>
+            <div className="m-24 p-3 border-1 border-gray-400 ...">
+                <h3>Add Fee details</h3>
+            <form onSubmit={this.onSubmit}>
+            <div class="form-group">
+                <label for="TeacherId" class="form-label">Teacher Id</label>
+                <input type="text" class="form-control"  id="TeacherId" placeholder="Enter Teacher Id"
+                value={this.state.TeacherId}
+                onChange={this.onChangeTeacherId}></input>
+                
+            </div>
+            <div class="form-group">
+                <label for="Name" class="form-label">Teacher name</label>
+                <input type="text" class="form-control" id="Name" placeholder="Enter Name"
+                value={this.state.Teachername}
+                onChange={this.onChangeTeachername}></input>
+                
+            </div>
+            <div class="form-group">
+                <label for="SubjectID" class="form-label">Suject Id</label>
+                <input type="text" class="form-control" id="subjectID" placeholder="Enter Subject ID"
+                value={this.state.subjectId}
+                onChange={this.onChangesubjectId}></input>
+                
+            </div>
+            <div class="form-group">
+                <label for="SubjectName" class="form-label">Suject Name</label>
+                <input type="text" class="form-control" id="SubjectName" placeholder="Enter Subject Name"
+                value={this.state.subjectName}
+                onChange={this.onChangesubjectName}></input>
+                
+            </div>
+            <div class="form-group">
+                <label for="Amount" class="form-label">Amount</label>
+                <input type="text" class="form-control" id="Amount" placeholder="Enter amount"
+                value={this.state.Amount}
+                onChange={this.onChangeAmount}></input>
+                
+            </div>
+            <br></br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 
 
 
-                    
 
-                    <div className="form-group" align="center">
-                            <input type="submit" value="Insert new Barrower" className="btn btn-primary"/>
-                    </div>
-                     
-                </form> 
-             </div>
+
+
+
         )
     }
 
