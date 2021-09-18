@@ -8,7 +8,7 @@ const FeeDetailsSchema=new Schema({
         type: String,
         required:true
     },
-    name: {
+    Teachername: {
         type: String,
         required: true
     },
@@ -28,7 +28,7 @@ const FeeDetailsSchema=new Schema({
 })
 
 //parameters are tableName,schema name
-const TuitionFeeDetails=mongoose.model("FeeDetails", FeeDetailsSchema);
+const TuitionFeeDetails=mongoose.model("FeeDetail", FeeDetailsSchema);
 
 // export
 module.exports=TuitionFeeDetails;

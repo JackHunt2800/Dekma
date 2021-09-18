@@ -5,14 +5,14 @@ let feeDet=require("../models/TuitionFeeDetails");
 router.route("/add").post((req,res)=>{
 
     const TeacherId=req.body.TeacherId;
-    const name=req.body.name;
+    const Teachername=req.body.Teachername;
     const subjectId=req.body.subjectId;
     const subjectName=req.body.subjectName;
     const Amount=Number(req.body.Amount);
 
     const newFeeDetails=new feeDet({
         TeacherId,
-        name,
+        Teachername,
         subjectId,
         subjectName,
         Amount
@@ -45,11 +45,11 @@ router.route("/update/:id").put(async (req,res)=>{
 
     //assigning values
     //destructure method used
-    const{TeacherId,name,subjectId,subjectName,Amount}=req.body;
+    const{TeacherId,Teachername,subjectId,subjectName,Amount}=req.body;
 
     const updateFeeDetails={
         TeacherId,
-        name,
+        Teachername,
         subjectId,
         subjectName,
         Amount
