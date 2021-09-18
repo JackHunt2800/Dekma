@@ -3,7 +3,9 @@ import './App.css';
 import Header from './components/Header';
 import TuitionFeeDetials from "./components/TuitionFeeDetails"
 import {BrowserRouter as Router,Route} from "react-router-dom"
-import DisplayTuitionFee from './components/DisplayTuitionFee';
+import DisplayTuitionFee from "./components/DisplayTuitionFee"
+import updateTuitionFee from "./components/updateTuitionFee"
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Header/>
         <Route path="/add" exact component={TuitionFeeDetials}/>
         <Route path="/list" exact component={DisplayTuitionFee}/>
+        <Route path="/updateTuitionFee/:id" exact component={updateTuitionFee}/>
       </div>
     </Router>
     

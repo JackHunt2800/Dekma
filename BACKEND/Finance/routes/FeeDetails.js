@@ -97,6 +97,12 @@ router.route("/get/:id").get(async (req,res)=>{
     
 })
 
+router.route("/:id").get((req, res) => {
+    feeDet.findById(req.params.id)
+    .then( FeeDetails=> res.json(FeeDetails))
+    .catch(err => res.status(400).json('Error: ' + err)); 
+  })
+
 
 
 

@@ -12,19 +12,19 @@ const TuitionFeeDetail = props =>(
         <td>{props.feeDetails.Amount}</td>
         
      
-        <td >
+        {/*<td >
 
-        <Link to ={"/updateLibrary/"+props.feeDetails._id}>Edit details</Link> | <a href="#" onClick={() => { props.DeleteTuitionFee(props.feeDetails._id)}}>Delete</a></td>
-      
-      {/*<td>
-             <a className="btn btn-warning" href={`/updateLibrary/${props.feeDetails._id}`}>
+        <Link to ={"/updateTuitionFee/"+props.feeDetails._id}>Edit details</Link> | <a href="#" onClick={() => { props.DeleteTuitionFee(props.feeDetails._id)}}>Delete</a></td>
+        */}
+      <td>
+             <a className="btn btn-warning" href={`/updateTuitionFee/${props.feeDetails._id}`}>
                  <i className="fas fa-edit"></i>&nbsp;Edit
             </a>
              &nbsp;
-           <a className="btn btn-danger" href="#" onClick={()=>{ props.DeletefeeDetails(props.feeDetails._id) }}>
+           <a className="btn btn-danger" href="#" onClick={()=>{ props.DeleteTuitionFee(props.feeDetails._id) }}>
                  <i className="far fa-trash-alt"></i>&nbsp;Delete
             </a>
-      </td>*/} 
+      </td>
       </tr>
 )
 
@@ -67,7 +67,7 @@ export default class DisplayTuitionFee extends Component{
 
    render(){
        return (
-           <div  className = "container" >
+           <div  className = "container"  >
                <h3>Tuition Fee Details</h3>
                <table  class="table">
                    <thead className="thead-light">
