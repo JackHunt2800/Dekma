@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+/*import React,{useState} from 'react'
 import axios from "axios";
 
 export default function AddFeeDetails(){
@@ -33,7 +33,7 @@ export default function AddFeeDetails(){
 
 
     return(
-        <div className="m-20 ...">
+        <div className="m-24 p-3 border-1 border-gray-400 ...">
             <form onSubmit={sendData}>
             <div class="form-group">
                 <label for="TeacherId" class="form-label">Teacher Id</label>
@@ -88,22 +88,23 @@ export default function AddFeeDetails(){
 
         
     )
-}
+}*/
 
-/*import React, { Component} from 'react';
+import React, { Component} from 'react';
 
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
 
-export default class AddBarrowers extends Component{
+export default class TuitionFeeDetails extends Component{
     constructor(props) {
         super(props);
 
-        this.onChangeTeacherId = this.onChangeTeacherId.bind(this);
-        this.onChangeTeachername = this.onChangeTeachername.bind(this);
-        this.onChangesubjectId = this.onChangesubjectId.bind(this);
-        this.onChangesubjectName = this.onChangesubjectName.bind(this);
-        this.onChangeAmount = this.onChangeAmount.bind(this);
+        //this.onChangeTeacherId = this.onChangeTeacherId.bind(this);
+        //this.onChangeTeachername = this.onChangeTeachername.bind(this);
+        //this.onChangesubjectId = this.onChangesubjectId.bind(this);
+        //this.onChangesubjectName = this.onChangesubjectName.bind(this);
+        //this.onChangeAmount = this.onChangeAmount.bind(this);
+        //this.onSubmit = this.onSubmit.bind(this);
         
 
         this.state = {
@@ -112,7 +113,7 @@ export default class AddBarrowers extends Component{
             subjectId:'',
             subjectName:'',
             Amount:'',
-            Barrowers: [] 
+            feeDetails: [] 
 
         }
     }  
@@ -120,47 +121,47 @@ export default class AddBarrowers extends Component{
     //componentDitMount called automatically called right before anything display on the page
     componentDidMount(){
         this.setState({
-            Barrowers:['test user'],
+            feeDetails:['test user'],
             name : 'test user'
         })
     }
     
     
-    onChangeTeacherId(e){
+    onChangeTeacherId=(e)=>{
         this.setState({
             TeacherId: e.target.value
         });
     }
-    onChangeTeachername(e){
+    onChangeTeachername=(e)=>{
         this.setState({
             Teachername: e.target.value
         });
     }
-    onChangesubjectId(e){
+    onChangesubjectId=(e)=>{
         this.setState({
             subjectId: e.target.value
         });
     }
-    onChangesubjectName(e){
+    onChangesubjectName=(e)=>{
         this.setState({
             subjectName: e.target.value
         });
     } 
-    onChangeAmount(e){
+    onChangeAmount=(e)=>{
         this.setState({
             Amount: e.target.value
         });
     } 
    
 
-    onSubmit(e){
+    onSubmit=(e)=>{
         e.preventDefault();
 
         //changed barrow to some name
         const feeDetails ={
             TeacherId:this.state.TeacherId,
             Teachername:this.state.Teachername,
-            subjectID:this.state.subjectId,
+            subjectId:this.state.subjectId,
             subjectName:this.state.subjectName,
             Amount:this.state.Amount,
         }
@@ -168,7 +169,7 @@ export default class AddBarrowers extends Component{
         
         axios.post('http://localhost:8070/feeDetails/add',feeDetails)
         .then(()=>{
-            alert("New Barrower Added")
+            alert("New Fee Details Added")
         }).catch((err)=>{
             alert(err)
         })
@@ -256,4 +257,4 @@ export default class AddBarrowers extends Component{
         )
     }
 
-}*/
+}
