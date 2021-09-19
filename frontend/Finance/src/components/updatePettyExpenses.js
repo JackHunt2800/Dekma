@@ -1,15 +1,13 @@
-import React, { Component} from 'react';
-
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import {Link} from 'react-router-dom';
 
-export default class InsertPettyExpenses extends Component{
+
+export default class EditPettyExpenses extends Component{
     constructor(props) {
         super(props);
-        
+         
         this.state = {
             Date: new Date(),
             itemName:'',
@@ -18,62 +16,82 @@ export default class InsertPettyExpenses extends Component{
             pettyCash: [] 
 
         }
-    }  
     
-    //componentDitMount called automatically called right before anything display on the page
+    }
+
     componentDidMount(){
-        this.setState({
-            pettyCash:['test user'],
-            name : 'test user'
+        axios.get('http://localhost:8070/pettyCash/'+this.props.match.params.id)
+        .then(response => {
+            this.setState({
+            
+            
+                Date: new Date(response.data.Date),
+                itemName: response.data.itemName,
+                Category:response.data.Category,
+                subjectName:response.data.subjectName,
+                Amount:response.data.Amount,
+                
+               })
+        })
+        .catch(function (error){
+            console.log(error);
         })
     }
     
-    
     onChangeDate=(date)=>{
         this.setState({
-            Date: date
+            Date : date
         });
     }
     onChangeitemName=(e)=>{
         this.setState({
             itemName: e.target.value
         });
-    }
+    } 
+
     onChangeCategory=(e)=>{
         this.setState({
             Category: e.target.value
         });
+    } 
+    onChangesubjectName=(e)=>{
+        this.setState({
+            subjectName : e.target.value
+        });
     }
     onChangeAmount=(e)=>{
         this.setState({
-            Amount: e.target.value
+            Amount : e.target.value
         });
-    } 
-     
+    }
    
-
+    
     onSubmit=(e)=>{
         e.preventDefault();
+        const PettyCash ={
 
-        //changed barrow to some name
-        const pettyCash ={
-            Date:this.state.Date,
-            itemName:this.state.itemName,
+            Date: this.state.Date,
+            itemName: this.state.itemName,
             Category:this.state.Category,
+            subjectName:this.state.subjectName,
             Amount:this.state.Amount,
+            
         }
 
-        
-        axios.post('http://localhost:8070/pettyCash/add',pettyCash)
-        .then(()=>{
-            alert("Expense added")
-        }).catch((err)=>{
-            alert(err)
-        })
-    }
     
+       console.log(PettyCash);
 
- render(){
+       axios.put('http://localhost:8070/pettyCash/update/'+this.props.match.params.id ,PettyCash)
+       .then(res => console.log(res.data));
+
+       window.location='/listExpenses'; 
+        
+    }
+
+
+
+    render(){
+
         return(
 
             <div className="m-24 p-3 border-1 border-gray-400 ...">
@@ -113,22 +131,10 @@ export default class InsertPettyExpenses extends Component{
             </div>
             
             <br></br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <div className="float-right ...">
-            <td >
-                <Link to ={"/listExpenses"}>View Details</Link></td>
-            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            
             </form>
-        </div>
-
-
-
-
-
-
-
+        </div>           
         )
-
     }
-
 }

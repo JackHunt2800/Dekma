@@ -1,32 +1,18 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+
+
 
 export default class EditTuitionFeeDetail extends Component{
     constructor(props) {
         super(props);
-
-        /*this.onChangeTeacherId= this.onChangeTeacherId.bind(this);
-        this.onChangeTeachername= this.onChangeTeachername.bind(this);
-        this.onChangesubjectId = this.onChangesubjectId.bind(this);
-        this.onChangesubjectName = this.onChangesubjectName.bind(this);
-        this.onChangeAmount = this.onChangeAmount.bind(this);
-        this.onChangeDateBarrowed = this.onChangeDateBarrowed.bind(this);
-        this.onChangeDateReturned = this.onChangeDateReturned.bind(this);
-        this.onChangestatus = this.onChangestatus.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);*/
          
-
         this.state = {
             TeacherId: '',
             Teachername: '',
             subjectId:'',
             subjectName:'',
             Amount:'',
-            //DateBarrowed: new Date(),
-            //DateReturned:new Date(),
-            //status:'',
             FeeDetails: [] 
 
         }
@@ -44,10 +30,7 @@ export default class EditTuitionFeeDetail extends Component{
                 subjectId:response.data.subjectId,
                 subjectName:response.data.subjectName,
                 Amount:response.data.Amount,
-                //DateBarrowed: new Date(response.data.DateBarrowed),
-                //DateReturned:new Date(response.data.DateReturned),
-                //status:response.data.status
-               
+                
                })
         })
         .catch(function (error){
@@ -92,9 +75,7 @@ export default class EditTuitionFeeDetail extends Component{
             subjectId:this.state.subjectId,
             subjectName:this.state.subjectName,
             Amount:this.state.Amount,
-            //DateBarrowed: this.state.DateBarrowed,
-            //DateReturned:this.state.DateReturned,
-            //status:this.state.status
+            
         }
 
     

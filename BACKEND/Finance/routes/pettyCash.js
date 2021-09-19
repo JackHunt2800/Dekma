@@ -76,7 +76,12 @@ router.route("/get/:Category").get(async (req,res)=>{
 
 })
 
-//retrieve on specific date
+//retrieve of a specific row
+router.route("/:id").get((req, res) => {
+    pettyCash.findById(req.params.id)
+    .then( FeeDetails=> res.json(FeeDetails))
+    .catch(err => res.status(400).json('Error: ' + err)); 
+  })
 
 
 
