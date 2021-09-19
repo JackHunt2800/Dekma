@@ -16,10 +16,10 @@ function Header(){
                 <a className="nav-link" href="/add">Tuition Fee Details</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="/list">Edit Fee Details</a>   
+                <a className="nav-link" href="/list">View Fee Details</a>   
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" href="#">Expenses</a>
+                <a className="nav-link" href="/addExpenses">Expenses</a>
                 </li>
                 
             </ul>
