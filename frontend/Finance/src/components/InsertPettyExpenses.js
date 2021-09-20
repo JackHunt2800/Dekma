@@ -15,7 +15,13 @@ export default class InsertPettyExpenses extends Component{
             itemName:'',
             Category:'',
             Amount:'',
-            pettyCash: [] 
+            pettyCash: [],
+            //DateError:'',
+            itemNameError:'',
+            CategoryError:'',
+            AmountError:''
+
+
 
         }
     }  
@@ -48,7 +54,37 @@ export default class InsertPettyExpenses extends Component{
         this.setState({
             Amount: e.target.value
         });
-    } 
+    }
+    
+    validate=()=>{
+
+        //let DateError='';
+        let itemNameError='';
+        let CategoryError='';
+        let AmountError='';
+
+        /*if(!this.state.Date){
+            DateError="Date cannot be empty"
+        }*/
+        if(!this.state.itemName){
+            itemNameError="Item name cannot be empty"
+        }
+        if(!this.state.Category){
+            CategoryError="Category cannot be empty"
+        }
+        if(!this.state.Amount){
+            AmountError="Amount cannot be empty"
+        }
+
+        if(itemNameError || CategoryError || AmountError){
+            this.setState({itemNameError,CategoryError,AmountError})
+            return false;
+        }
+
+        return true;
+
+
+    }
      
    
 
@@ -63,7 +99,8 @@ export default class InsertPettyExpenses extends Component{
             Amount:this.state.Amount,
         }
 
-        
+        const isValid = this.validate()
+        if(isValid){
         axios.post('http://localhost:8070/pettyCash/add',pettyCash)
         .then(()=>{
             alert("Expense added")
@@ -71,6 +108,7 @@ export default class InsertPettyExpenses extends Component{
             alert(err)
         })
     }
+}
     
 
  render(){
@@ -88,13 +126,17 @@ export default class InsertPettyExpenses extends Component{
                         selected={this.state.Date}
                         onChange={this.onChangeDate}
                         />     
-                    </div >  
+                    </div >
+                 
             </div>
             <div class="form-group">
                 <label for="Name" class="form-label">Item Name</label>
                 <input type="text" class="form-control"  id="Name" placeholder="Enter Item Name"
                 value={this.state.itemName}
                 onChange={this.onChangeitemName}></input>
+                <div style={{color:"red"}}>
+                    {this.state.itemNameError}
+                </div>
                 
             </div>
             <div class="form-group">
@@ -102,6 +144,9 @@ export default class InsertPettyExpenses extends Component{
                 <input type="text" class="form-control" id="Category" placeholder="Enter Category"
                 value={this.state.Category}
                 onChange={this.onChangeCategory}></input>
+                <div style={{color:"red"}}>
+                    {this.state.CategoryError}
+                </div>
                 
             </div>
             <div class="form-group">
@@ -109,6 +154,9 @@ export default class InsertPettyExpenses extends Component{
                 <input type="text" class="form-control" id="Amount" placeholder="Enter Amount"
                 value={this.state.Amount}
                 onChange={this.onChangeAmount}></input>
+                <div style={{color:"red"}}>
+                    {this.state.AmountError}
+                </div>
                 
             </div>
             

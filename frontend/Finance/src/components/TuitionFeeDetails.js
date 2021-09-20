@@ -94,6 +94,7 @@ import React, { Component} from 'react';
 
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 export default class TuitionFeeDetails extends Component{
     constructor(props) {
@@ -113,7 +114,11 @@ export default class TuitionFeeDetails extends Component{
             subjectId:'',
             subjectName:'',
             Amount:'',
-            feeDetails: [] 
+            feeDetails: [],
+            TeacherIdError:'',
+            TeachernameError:'',
+            subjectIdError:'',
+            AmountError:''
 
         }
     }  
@@ -151,6 +156,37 @@ export default class TuitionFeeDetails extends Component{
         this.setState({
             Amount: e.target.value
         });
+    }
+    //validation part
+    validate=()=>{
+
+        let TeacherIdError='';
+        let TeachernameError='';
+        let subjectIdError='';
+        let AmountError='';
+
+        if(!this.state.TeacherId){
+            TeacherIdError="Teacher Id cannot be empty";
+        }
+        if(!this.state.Teachername){
+            TeachernameError="Teacher name cannot be empty";
+        }
+        if(!this.state.subjectId){
+            subjectIdError="Subject ID cannot be empty";
+        }
+        if(!this.state.Amount){
+            AmountError="Amount cannot be empty";
+        }
+
+        if(TeacherIdError || TeachernameError || subjectIdError || AmountError){
+            this.setState({TeacherIdError,TeachernameError,subjectIdError,AmountError});
+            return false;
+        }
+
+        return true;
+
+
+
     } 
    
 
@@ -166,7 +202,9 @@ export default class TuitionFeeDetails extends Component{
             Amount:this.state.Amount,
         }
 
-        
+        const isValid = this.validate()
+
+        if(isValid){
         axios.post('http://localhost:8070/feeDetails/add',feeDetails)
         .then(()=>{
             alert("New Fee Details Added")
@@ -174,6 +212,7 @@ export default class TuitionFeeDetails extends Component{
             alert(err)
         })
     }
+}
     
 
  render(){
@@ -187,6 +226,9 @@ export default class TuitionFeeDetails extends Component{
                 <input type="text" class="form-control"  id="TeacherId" placeholder="Enter Teacher Id"
                 value={this.state.TeacherId}
                 onChange={this.onChangeTeacherId}></input>
+                <div style={{color:"red"}}>
+                    {this.state.TeacherIdError}
+                </div>   
                 
             </div>
             <div class="form-group">
@@ -194,13 +236,19 @@ export default class TuitionFeeDetails extends Component{
                 <input type="text" class="form-control" id="Name" placeholder="Enter Name"
                 value={this.state.Teachername}
                 onChange={this.onChangeTeachername}></input>
+                <div style={{color:"red"}}>
+                    {this.state.TeachernameError}
+                </div>   
                 
             </div>
             <div class="form-group">
                 <label for="SubjectID" class="form-label">Suject Id</label>
                 <input type="text" class="form-control" id="subjectID" placeholder="Enter Subject ID"
                 value={this.state.subjectId}
-                onChange={this.onChangesubjectId}></input>
+                onChange={this.onChangesubjectId} required></input>
+                <div style={{color:"red"}}>
+                    {this.state.subjectIdError}
+                </div>   
                 
             </div>
             <div class="form-group">
@@ -215,10 +263,17 @@ export default class TuitionFeeDetails extends Component{
                 <input type="text" class="form-control" id="Amount" placeholder="Enter amount"
                 value={this.state.Amount}
                 onChange={this.onChangeAmount}></input>
+                <div style={{color:"red"}}>
+                    {this.state.AmountError}
+                </div>   
                 
             </div>
             <br></br>
             <button type="submit" class="btn btn-primary">Submit</button>
+            <div className="float-right ...">
+            <td >
+                <Link to ={"/listTFeeDetails"}>View Details</Link></td>
+            </div>
             </form>
         </div>
 

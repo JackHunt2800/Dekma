@@ -16,7 +16,12 @@ export default class InsertStudentPayment extends Component{
             SubjectName:'',
             PaymentDate:new Date(),
             Amount:'',
-            stuPayment: [] 
+            stuPayment: [],
+            ClassIdError:'',
+            StudentIdError:'',
+            SubjectNameError:'',
+            AmountError:''
+             
 
         }
     }  
@@ -54,7 +59,37 @@ export default class InsertStudentPayment extends Component{
         this.setState({
             Amount: e.target.value
         });
-    } 
+    }
+    
+    //validation part
+    validate=()=>{
+
+        let ClassIdError='';
+        let StudentIdError='';
+        let SubjectNameError='';
+        let AmountError='';
+
+        if(!this.state.ClassId){
+            ClassIdError="Class Id cannot be empty";
+        }
+        if(!this.state.StudentId){
+            StudentIdError="Student id cannot be empty";
+        }
+        if(!this.state.SubjectName){
+            SubjectNameError="Subject name cannot be empty"
+        }
+        if(!this.state.Amount){
+            AmountError="Amount cannot be empty"
+        }
+
+        if(ClassIdError||StudentIdError||SubjectNameError||AmountError){
+            this.setState({ClassIdError,StudentIdError,SubjectNameError,AmountError})
+            return false;
+        }
+
+        return true;
+        
+    }
      
    
 
@@ -71,7 +106,8 @@ export default class InsertStudentPayment extends Component{
             Amount:this.state.Amount,
         }
 
-        
+        const isValid = this.validate()
+        if(isValid){
         axios.post('http://localhost:8070/stuPayment/add',stuPayment)
         .then(()=>{
             alert("Expense added")
@@ -79,6 +115,7 @@ export default class InsertStudentPayment extends Component{
             alert(err)
         })
     }
+}
     
 
  render(){
@@ -103,6 +140,9 @@ export default class InsertStudentPayment extends Component{
                 <input type="text" class="form-control"  id="Name" placeholder="Enter Class Id"
                 value={this.state.ClassId}
                 onChange={this.onChangeClassId}></input>
+                <div style={{color:"red"}}>
+                    {this.state.ClassIdError}
+                </div>
                 
             </div>
             <div class="form-group">
@@ -110,6 +150,9 @@ export default class InsertStudentPayment extends Component{
                 <input type="text" class="form-control" id="StudentId" placeholder="Enter StudentId"
                 value={this.state.StudentId}
                 onChange={this.onChangeStudentId}></input>
+                <div style={{color:"red"}}>
+                    {this.state.StudentIdError}
+                </div>
                 
             </div>
             <div class="form-group">
@@ -117,6 +160,9 @@ export default class InsertStudentPayment extends Component{
                 <input type="text" class="form-control" id="StudentId" placeholder="Enter Subject name"
                 value={this.state.SubjectName}
                 onChange={this.onChangeSubjectName}></input>
+                <div style={{color:"red"}}>
+                    {this.state.SubjectNameError}
+                </div>
                 
             </div>
             <div class="form-group">
@@ -124,6 +170,9 @@ export default class InsertStudentPayment extends Component{
                 <input type="text" class="form-control" id="Amount" placeholder="Enter Amount"
                 value={this.state.Amount}
                 onChange={this.onChangeAmount}></input>
+                <div style={{color:"red"}}>
+                    {this.state.AmountError}
+                </div>
                 
             </div>
             

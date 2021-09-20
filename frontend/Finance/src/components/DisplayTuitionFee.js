@@ -67,7 +67,7 @@ export default class DisplayTuitionFee extends Component{
 
    render(){
        return (
-           <div  className = "container"  >
+           <div  className = "container" className="m-20 border-1 border-gray-400 ... ">
                <h3>Tuition Fee Details</h3>
                <table  class="table">
                    <thead className="thead-light">

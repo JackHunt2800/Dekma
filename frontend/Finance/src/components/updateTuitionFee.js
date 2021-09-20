@@ -84,7 +84,7 @@ export default class EditTuitionFeeDetail extends Component{
        axios.put('http://localhost:8070/feeDetails/update/'+this.props.match.params.id ,FeeDetails)
        .then(res => console.log(res.data));
 
-       window.location='/list'; 
+       window.location='/listTFeeDetails'; 
         
     }
 
