@@ -8,6 +8,7 @@ import updateTuitionFee from "./components/updateTuitionFee"
 import InsertPettyExpenses from './components/InsertPettyExpenses';
 import DisplayPettyExpenses from './components/DisplayPettyExpenses';
 import updatePettyExpenses from './components/updatePettyExpenses';
+import StuPayment from './components/StuPayment'
 
 
 function App() {
@@ -15,12 +16,15 @@ function App() {
     <Router>
       <div>
         <Header/>
-        <Route path="/add" exact component={TuitionFeeDetials}/>
-        <Route path="/list" exact component={DisplayTuitionFee}/>
+        <Route path="/addTFeeDetails" exact component={TuitionFeeDetials}/>
+        <Route path="/listTFeeDetails" exact component={DisplayTuitionFee}/>
         <Route path="/updateTuitionFee/:id" exact component={updateTuitionFee}/>
         <Route path="/addExpenses" exact component={InsertPettyExpenses}/>
         <Route path="/listExpenses" exact component={DisplayPettyExpenses}/>
         <Route path="/updatePettyExpenses/:id" exact component={updatePettyExpenses}/>
+        <Route path="/addStuPayment" exact component={StuPayment}/>
+
+
         
       </div>
     </Router>

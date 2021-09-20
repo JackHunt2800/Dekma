@@ -19,9 +19,7 @@ const PettyExpenses = props =>(
                  <i className="fas fa-edit"></i>&nbsp;Edit
             </a>
              &nbsp;
-           <a className="btn btn-danger" href="#" onClick={()=>{ props.DeletePettyExpenses(props.pettyCash._id) }}>
-                 <i className="far fa-trash-alt"></i>&nbsp;Delete
-            </a>
+           
       </td>
       </tr>
 )

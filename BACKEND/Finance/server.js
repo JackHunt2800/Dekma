@@ -35,9 +35,9 @@ const pettyRouter=require("./routes/pettyCash.js");
 app.use("/pettyCash", pettyRouter)
 
 //payment
-//const stuPayment=require("./routes/stuPayment.js");
+const stuPayment=require("./routes/stuPayment.js");
 
-//app.use("/stuPayment", stuPayment);
+app.use("/stuPayment", stuPayment);
 
 
 

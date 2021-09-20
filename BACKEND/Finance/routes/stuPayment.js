@@ -5,7 +5,7 @@ let stuPayment=require("../models/stuPayment");
 router.route("/add").post((req,res)=>{
 
     const ClassId=req.body.ClassId;
-    const StudentId=req.body.name.StudentId;
+    const StudentId=req.body.StudentId;
     const SubjectName=req.body.SubjectName;
     const PaymentDate=req.body.PaymentDate;
     const Amount=Number(req.body.Amount);
@@ -20,7 +20,7 @@ router.route("/add").post((req,res)=>{
 
     //cheching of added or not
     newStuPayment.save().then(()=>{
-        res.json("Student addedd")
+        res.json("Student payment details added")
     }).catch((err)=>{
         console.log(err);
     })
