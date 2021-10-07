@@ -61,7 +61,7 @@ export default class EditPettyExpenses extends Component{
     }
     onChangeAmount=(e)=>{
         this.setState({
-            Amount : e.target.value
+            Amount : e.target.value.replace(/\D/g,'')
         });
     }
    

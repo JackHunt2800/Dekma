@@ -52,7 +52,7 @@ export default class InsertPettyExpenses extends Component{
     }
     onChangeAmount=(e)=>{
         this.setState({
-            Amount: e.target.value
+            Amount: e.target.value.replace(/\D/g,'')
         });
     }
     
@@ -115,7 +115,7 @@ export default class InsertPettyExpenses extends Component{
         return(
 
             <div className="m-24 p-3 border-1 border-gray-400 ...">
-                <h3>Add Expenses</h3>
+                <h3><b>Add Expenses</b></h3>
             <form onSubmit={this.onSubmit}>
             
             <div className="form-group">

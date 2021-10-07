@@ -57,7 +57,7 @@ export default class InsertStudentPayment extends Component{
     }
     onChangeAmount=(e)=>{
         this.setState({
-            Amount: e.target.value
+            Amount: e.target.value.replace(/\D/g,'')
         });
     }
     
@@ -90,6 +90,9 @@ export default class InsertStudentPayment extends Component{
         return true;
         
     }
+
+    //amount only inputting numbers
+    
      
    
 
@@ -122,7 +125,7 @@ export default class InsertStudentPayment extends Component{
         return(
 
             <div className="m-24 p-3 border-1 border-gray-400 ...">
-                <h3>Add Student payment</h3>
+                <h3><b>Add Student payment</b></h3>
             <form onSubmit={this.onSubmit}>
             
             <div className="form-group">
@@ -132,6 +135,8 @@ export default class InsertStudentPayment extends Component{
                          <DatePicker className="border-2 ..."
                         selected={this.state.PaymentDate}
                         onChange={this.onChangeDate}
+                        maxDate={new Date()}
+                        placeholderText="Select a day"
                         />     
                     </div >  
             </div>
@@ -169,7 +174,7 @@ export default class InsertStudentPayment extends Component{
                 <label for="Amount" class="form-label">Amount</label>
                 <input type="text" class="form-control" id="Amount" placeholder="Enter Amount"
                 value={this.state.Amount}
-                onChange={this.onChangeAmount}></input>
+                onChange={this.onChangeAmount} inputMode="numeric"></input>
                 <div style={{color:"red"}}>
                     {this.state.AmountError}
                 </div>

@@ -219,7 +219,7 @@ export default class TuitionFeeDetails extends Component{
         return(
 
             <div className="m-24 p-3 border-1 border-gray-400 ...">
-                <h3>Add Fee details</h3>
+                <h3><b>Add Fee details</b></h3>
             <form onSubmit={this.onSubmit}>
             <div class="form-group">
                 <label for="TeacherId" class="form-label">Teacher Id</label>

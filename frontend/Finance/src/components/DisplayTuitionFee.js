@@ -3,6 +3,34 @@ import {Link} from 'react-router-dom';
 
 import axios from 'axios';
 
+//report
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
+
+const generatePDF = feeDetails=> {
+
+    const doc = new jsPDF();
+    const tableColumn = ["TeacherID", "Teacher name", "Subject ID","Subject name","Amount"];
+    const tableRows = [];
+   
+
+    feeDetails.map(Fee => {
+        const FeeData = [
+            Fee.TeacherId,
+            Fee.Teachername,
+            Fee.subjectId,
+            Fee.subjectName,
+            Fee.Amount,
+             
+        ];
+        tableRows.push(FeeData);
+    })
+   
+    doc.autoTable(tableColumn, tableRows, { styles: { fontSize: 8, }, startY:35});
+    doc.save("Book Details Report.pdf");
+};
+
 const TuitionFeeDetail = props =>(
     <tr>
         <td>{props.feeDetails.TeacherId}</td>
@@ -54,6 +82,32 @@ export default class DisplayTuitionFee extends Component{
             feeDetails: this.state.feeDetails.filter(el => el._id !== id)
         })
     }
+
+    //search
+    filterData(feeDetails,searchKey){
+
+        const result = feeDetails.filter((Fee)=>
+
+        Fee.TeacherId.toLowerCase().includes(searchKey)||
+        Fee.Teachername.toLowerCase().includes(searchKey)||
+        Fee.subjectId.toLowerCase().includes(searchKey)||
+        Fee.subjectName.toLowerCase().includes(searchKey)
+       
+        )
+
+        this.setState({feeDetails:result})
+
+    }
+
+    handleSearchArea = (e) =>{
+          const searchKey = e.currentTarget.value;
+          axios.get('http://localhost:8070/feeDetails/').then(res =>{
+
+            this.filterData(res.data,searchKey)
+        })
+
+      }
+
     CurrentTuitionFeeTable(){
         return this.state.feeDetails.map(currentexercise => {
 
@@ -67,9 +121,21 @@ export default class DisplayTuitionFee extends Component{
 
    render(){
        return (
+
            <div  className = "container" className="m-20 border-1 border-gray-400 ... ">
                <h3>Tuition Fee Details</h3>
-               <table  class="table">
+               <br></br>
+               <div className="container">
+            <div className="row">
+            <div className="col-lg-9 mt-2 mb-2"/>
+            <div className="col-lg-3 mt-2 mb-2">
+
+            <input className="form-control" type="search" placeholder="Search" name="searchEmployee" onChange={this.handleSearchArea}>                                
+            </input>
+            </div>
+            </div>
+               
+               <table  className="table">
                    <thead className="thead-light">
                        <tr>
                        <th>Teacher ID</th>
@@ -84,6 +150,10 @@ export default class DisplayTuitionFee extends Component{
                            {this.CurrentTuitionFeeTable()  }
                        </tbody>
                </table>
+           </div>
+           <div class="button">
+         <button type ="button" class = "btn btn-secondary btn-sm" onClick={()=> generatePDF(this.state.feeDetails)}>Generate Report</button>
+        </div>
            </div>
        )
    }
