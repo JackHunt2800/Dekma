@@ -6,6 +6,7 @@ import axios from 'axios';
 //report
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import swal from "sweetalert2";
 
 
 const generatePDF = feeDetails=> {
@@ -28,7 +29,7 @@ const generatePDF = feeDetails=> {
     })
    
     doc.autoTable(tableColumn, tableRows, { styles: { fontSize: 8, }, startY:35});
-    doc.save("Book Details Report.pdf");
+    doc.save("Fee Details Report.pdf");
 };
 
 const TuitionFeeDetail = props =>(
@@ -77,7 +78,7 @@ export default class DisplayTuitionFee extends Component{
     DeleteTuitionFee(id){
         axios.delete('http://localhost:8070/feeDetails/delete/'+id)
         .then(res => console.log(res.data));
-
+        swal.fire("Deleted","Tuition Fee deleted successfully!","success")
         this.setState({
             feeDetails: this.state.feeDetails.filter(el => el._id !== id)
         })
@@ -121,10 +122,11 @@ export default class DisplayTuitionFee extends Component{
 
    render(){
        return (
-
-           <div  className = "container" className="m-20 border-1 border-gray-400 ... ">
-               <h3>Tuition Fee Details</h3>
-               <br></br>
+            <div>
+                <div class="mt-20 ...">
+            <center><b><h3>Fee details Details</h3></b></center>
+            </div>
+           <div  className = "container" className="m-20 mt-3 ... ">
                <div className="container">
             <div className="row">
             <div className="col-lg-9 mt-2 mb-2"/>
@@ -135,7 +137,7 @@ export default class DisplayTuitionFee extends Component{
             </div>
             </div>
                
-               <table  className="table">
+               <table  className="table" className="table table-hover" style={{backgroundColor:"rgb(200,200,200,0.6)",borderRadius:"20px 20px 0px 0px", marginTop:"30px"}}>
                    <thead className="thead-light">
                        <tr>
                        <th>Teacher ID</th>
@@ -151,9 +153,10 @@ export default class DisplayTuitionFee extends Component{
                        </tbody>
                </table>
            </div>
-           <div class="button">
+           <div className="button" className="mb-2 mr-8 ml-2 float-right ..."> 
          <button type ="button" class = "btn btn-secondary btn-sm" onClick={()=> generatePDF(this.state.feeDetails)}>Generate Report</button>
         </div>
+           </div>
            </div>
        )
    }

@@ -95,6 +95,7 @@ import React, { Component} from 'react';
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import swal from "sweetalert2";
 
 export default class TuitionFeeDetails extends Component{
     constructor(props) {
@@ -154,7 +155,7 @@ export default class TuitionFeeDetails extends Component{
     } 
     onChangeAmount=(e)=>{
         this.setState({
-            Amount: e.target.value
+            Amount: e.target.value.replace(/\D/g,'')
         });
     }
     //validation part
@@ -206,20 +207,55 @@ export default class TuitionFeeDetails extends Component{
 
         if(isValid){
         axios.post('http://localhost:8070/feeDetails/add',feeDetails)
+        swal.fire("Inserted","Tuition Fee added successfully!","success")
         .then(()=>{
-            alert("New Fee Details Added")
+            //alert("New Fee Details Added");
+            this.setState({
+                TeacherId:"",
+                Teachername:"",
+                subjectId:"",
+                subjectName:"",
+                Amount:"",
+            })
         }).catch((err)=>{
             alert(err)
         })
     }
 }
+//demo button
+btnDemo = (e) => {
+    e.preventDefault();
+  
+    const {TeacherId,Teachername,subjectId,subjectName,Amount } = this.state;
+  
+    const data = {
+        TeacherId:TeacherId,
+        Teachername:Teachername,
+        subjectId:subjectId,
+        subjectName:subjectName,
+        Amount:Amount,
+    }
+  
+    console.log(data)
+  
+    this.setState(
+        {
+            TeacherId:"tv980",
+            Teachername:"Paba",
+            subjectId:"sub456",
+            subjectName:"A/L History",
+            Amount:"1500",
+        }
+    )
+  }
     
 
  render(){
         return(
 
-            <div className="m-24 p-3 border-1 border-gray-400 ...">
-                <h3><b>Add Fee details</b></h3>
+            <div className="m-8 ..."style={{backgroundColor:"rgb(200,200,200,0.5)", padding:"20px 50px 20px 50px", marginTop:"50px",marginBottom:"50px", borderRadius:"30px"}}>
+               <h3><center><b>Tuition Fee Details </b></center></h3>
+                
             <form onSubmit={this.onSubmit}>
             <div class="form-group">
                 <label for="TeacherId" class="form-label">Teacher Id</label>
@@ -269,12 +305,17 @@ export default class TuitionFeeDetails extends Component{
                 
             </div>
             <br></br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <center><button type="submit" class="btn btn-primary">Submit</button></center>
             <div className="float-right ...">
             <td >
                 <Link to ={"/listTFeeDetails"}>View Details</Link></td>
             </div>
+            <button className="btn btn-warning" type="submit" style={{ marginTop: '15px', marginLeft:'5px' }} onClick={this.btnDemo}>
+                                    <i className="far far-check-square"></i>
+                                    &nbsp; <b>Demo</b>
+             </button>
             </form>
+            
         </div>
 
 

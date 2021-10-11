@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import swal from "sweetalert2";
 
 
 export default class EditPettyExpenses extends Component{
@@ -84,6 +85,8 @@ export default class EditPettyExpenses extends Component{
        axios.put('http://localhost:8070/pettyCash/update/'+this.props.match.params.id ,PettyCash)
        .then(res => console.log(res.data));
 
+       swal.fire("Updated","Expense details updated successfully!","success")
+
        window.location='/listExpenses'; 
         
     }
@@ -94,13 +97,13 @@ export default class EditPettyExpenses extends Component{
 
         return(
 
-            <div className="m-24 p-3 border-1 border-gray-400 ...">
+            <div className="m-8 ..."style={{backgroundColor:"rgb(200,200,200,0.5)", padding:"20px 50px 20px 50px", marginTop:"50px",marginBottom:"50px", borderRadius:"30px"}}>
                 <h3>Add Expenses</h3>
             <form onSubmit={this.onSubmit}>
             
             <div className="form-group">
                          
-                <label>Date Barrowed</label> 
+                <label>Payment date</label> 
                     <div >
                          <DatePicker className="border-2 ..."
                         selected={this.state.Date}

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import swal from "sweetalert2";
 
 
 export default class InsertStudentPayment extends Component{
@@ -112,8 +113,16 @@ export default class InsertStudentPayment extends Component{
         const isValid = this.validate()
         if(isValid){
         axios.post('http://localhost:8070/stuPayment/add',stuPayment)
+        swal.fire("Inserted","payment details  added successfully!","success")
         .then(()=>{
-            alert("Expense added")
+            //alert("Expense added")
+            this.setState({
+                ClassId:"",
+                StudentId:"",
+                SubjectName:"",
+                //PaymentDate:"",
+                Amount:"",
+            })
         }).catch((err)=>{
             alert(err)
         })
@@ -124,8 +133,8 @@ export default class InsertStudentPayment extends Component{
  render(){
         return(
 
-            <div className="m-24 p-3 border-1 border-gray-400 ...">
-                <h3><b>Add Student payment</b></h3>
+            <div className="m-8 ..."style={{backgroundColor:"rgb(200,200,200,0.5)", padding:"20px 50px 20px 50px", marginTop:"50px",marginBottom:"50px", borderRadius:"30px"}}>
+                <h3><center><b>Add Student payment</b></center></h3>
             <form onSubmit={this.onSubmit}>
             
             <div className="form-group">

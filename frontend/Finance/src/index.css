@@ -3,3 +3,14 @@
 @tailwind utilities;
 
 
+body {
+
+    background-repeat: no-repeat;
+
+    background-attachment: fixed;
+
+    background-image: url("https://www.usnews.com/dims4/USNEWS/293760a/2147483647/crop/2000x1313%2B0%2B0/resize/640x420/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2F33%2Fcd%2F58cf2eda41f7900bc231e5874612%2F200212-collegecosts-stock.jpg");
+
+    background-size: cover;
+
+  }

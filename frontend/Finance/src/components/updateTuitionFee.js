@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from "sweetalert2";
 
 
 
@@ -61,7 +62,7 @@ export default class EditTuitionFeeDetail extends Component{
     }
     onChangeAmount=(e)=>{
         this.setState({
-            Amount : e.target.value
+            Amount : e.target.value.replace(/\D/g,'')
         });
     }
    
@@ -83,7 +84,8 @@ export default class EditTuitionFeeDetail extends Component{
 
        axios.put('http://localhost:8070/feeDetails/update/'+this.props.match.params.id ,FeeDetails)
        .then(res => console.log(res.data));
-
+        
+       swal.fire("Updated","Tuition Fee updated successfully!","success")
        window.location='/listTFeeDetails'; 
         
     }

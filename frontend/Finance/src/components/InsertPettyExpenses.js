@@ -5,6 +5,7 @@ import { Form } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import {Link} from 'react-router-dom';
+import swal from "sweetalert2";
 
 export default class InsertPettyExpenses extends Component{
     constructor(props) {
@@ -91,6 +92,7 @@ export default class InsertPettyExpenses extends Component{
     onSubmit=(e)=>{
         e.preventDefault();
 
+
         //changed barrow to some name
         const pettyCash ={
             Date:this.state.Date,
@@ -102,19 +104,28 @@ export default class InsertPettyExpenses extends Component{
         const isValid = this.validate()
         if(isValid){
         axios.post('http://localhost:8070/pettyCash/add',pettyCash)
+        swal.fire("Inserted","Expense added successfully!","success")
         .then(()=>{
-            alert("Expense added")
+            //alert("Expense added");
+            this.setState({
+                Date:"",
+                itemName:"",
+                Category:"",
+                Amount:"",
+            })
+
         }).catch((err)=>{
             alert(err)
         })
     }
 }
+
     
 
  render(){
         return(
 
-            <div className="m-24 p-3 border-1 border-gray-400 ...">
+            <div className="m-8 ..."style={{backgroundColor:"rgb(200,200,200,0.5)", padding:"20px 50px 20px 50px", marginTop:"50px",marginBottom:"50px", borderRadius:"30px"}}>
                 <h3><b>Add Expenses</b></h3>
             <form onSubmit={this.onSubmit}>
             
@@ -139,7 +150,7 @@ export default class InsertPettyExpenses extends Component{
                 </div>
                 
             </div>
-            <div class="form-group">
+            {/*<div class="form-group">
                 <label for="Category" class="form-label">Category</label>
                 <input type="text" class="form-control" id="Category" placeholder="Enter Category"
                 value={this.state.Category}
@@ -148,6 +159,26 @@ export default class InsertPettyExpenses extends Component{
                     {this.state.CategoryError}
                 </div>
                 
+        </div>*/}
+            <div className="form-group" className="mt-3.5 mb-3.5 ...">
+            <label for="Category" class="form-label" className="mr-2 ...">Category</label>
+                <input list="category" type="text"
+                value={this.state.Category}
+                onChange={this.onChangeCategory}/>
+                    <datalist id="category">
+                        <option value="Food"></option>
+                        <option value="stationary"></option>
+                        <option value="Transport"></option>
+                        <option value="Postage"></option>
+                        <option value="Other"></option>
+
+                    </datalist>
+               
+                <div style={{color:"red"}}>
+                    {this.state.CategoryError}
+                </div>
+                
+
             </div>
             <div class="form-group">
                 <label for="Amount" class="form-label">Amount</label>

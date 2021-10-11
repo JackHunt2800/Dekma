@@ -3,6 +3,34 @@ import {Link} from 'react-router-dom';
 
 import axios from 'axios';
 
+//report
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import swal from "sweetalert2";
+
+
+const generatePDF = pettyCash=> {
+
+    const doc = new jsPDF();
+    const tableColumn = ["Date", "Item name", "Category","Amount"];
+    const tableRows = [];
+   
+
+    pettyCash.map(Fee => {
+        const FeeData = [
+            Fee.Date,
+            Fee.itemName,
+            Fee.Category,
+            Fee.Amount,
+             
+        ];
+        tableRows.push(FeeData);
+    })
+   
+    doc.autoTable(tableColumn, tableRows, { styles: { fontSize: 8, }, startY:35});
+    doc.save("Expense Details Report.pdf");
+};
+
 const PettyExpenses = props =>(
     <tr>
         <td>{props.pettyCash.Date}</td>
@@ -50,6 +78,31 @@ export default class DisplayPettyExpenses extends Component{
             pettyCash: this.state.pettyCash.filter(el => el._id !== id)
         })
     }
+
+     //search
+     filterData(pettyCash,searchKey){
+
+        const result = pettyCash.filter((exp)=>
+
+        exp.Date.toLowerCase().includes(searchKey)||
+        exp.Category.toLowerCase().includes(searchKey)
+       
+        )
+
+        this.setState({pettyCash:result})
+
+    }
+
+    handleSearchArea = (e) =>{
+          const searchKey = e.currentTarget.value;
+          axios.get('http://localhost:8070/pettyCash/').then(res =>{
+
+            this.filterData(res.data,searchKey)
+        })
+
+      }
+
+
     CurrentPettyExpensesTable(){
         return this.state.pettyCash.map(currentexercise => {
 
@@ -63,9 +116,25 @@ export default class DisplayPettyExpenses extends Component{
 
    render(){
        return (
-           <div  className = "container" className="m-20 border-1 border-gray-400 ...">
-               <h3>Expenses</h3>
-               <table  class="table">
+           <div>
+               <div class="mt-20 ...">
+            <center><b><h3>Expense Details</h3></b></center>
+            </div>
+           <div  className = "container" className="m-20 mt-3 ...">
+          
+               <br></br>
+               <div className="container">
+            <div className="row">
+            <div className="col-lg-9 mt-2 mb-2"/>
+            <div className="col-lg-3 mt-2 mb-2">
+
+            <input className="form-control" type="search" placeholder="Search" name="searchEmployee" onChange={this.handleSearchArea}>                                
+            </input>
+            </div>
+            </div>
+            </div>
+               
+               <table  class="table" className="table table-hover" style={{backgroundColor:"rgb(200,200,200,0.6)",borderRadius:"20px 20px 0px 0px", marginTop:"30px"}}>
                    <thead className="thead-light">
                        <tr>
                        <th>Date</th>
@@ -79,7 +148,12 @@ export default class DisplayPettyExpenses extends Component{
                            {this.CurrentPettyExpensesTable()  }
                        </tbody>
                </table>
-           </div>
+           <div className="button" className="mb-2 mr-0 ml-2 float-right ...">
+           <button type ="button" class = "btn btn-secondary btn-sm" onClick={()=> generatePDF(this.state.pettyCash)}>Generate Report</button>
+          </div>
+          </div>
+          </div>
+           
        )
    }
 }

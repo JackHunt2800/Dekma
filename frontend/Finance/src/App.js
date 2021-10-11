@@ -9,12 +9,15 @@ import InsertPettyExpenses from './components/InsertPettyExpenses';
 import DisplayPettyExpenses from './components/DisplayPettyExpenses';
 import updatePettyExpenses from './components/updatePettyExpenses';
 import StuPayment from './components/StuPayment'
+import HeaderComp from './components/HeaderComponent';
+import FooterComp from "./components/FooterComponent";
 
 
 function App() {
   return (
     <Router>
       <div>
+        <HeaderComp/>
         <Header/>
         <Route path="/addTFeeDetails" exact component={TuitionFeeDetials}/>
         <Route path="/listTFeeDetails" exact component={DisplayTuitionFee}/>
@@ -23,6 +26,7 @@ function App() {
         <Route path="/listExpenses" exact component={DisplayPettyExpenses}/>
         <Route path="/updatePettyExpenses/:id" exact component={updatePettyExpenses}/>
         <Route path="/addStuPayment" exact component={StuPayment}/>
+        <FooterComp/>
 
 
         
